@@ -19,13 +19,13 @@ title="Categorías | inventario"
     <form action="{{ route('admin.categories.store') }}" method="POST" class="space-y-4">
         @csrf
 
-        <x-wire-textarea 
-            label="Descripción" 
-            name="description" 
-            placeholder="Descripción de la categoría" 
-        > 
-            {{ old('description')}}
-        </x-wire-textarea>
+        <x-wire-input 
+            label="Nombre" 
+            name="name" 
+            placeholder="Nombre de la categoría" 
+            value="{{ old('name') }}"
+            required 
+        />
 
         <x-wire-textarea 
             label="Descripción" 
