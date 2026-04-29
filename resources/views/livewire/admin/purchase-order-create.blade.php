@@ -16,7 +16,7 @@
             });
 
             this.total = total;
-        }
+        });
     }
         
 }">
@@ -130,7 +130,7 @@
                 </tbody>
             </table>
 
-            <div class="flex- items-center space-x-4">
+            <div class="flex items-center space-x-4">
                 <x-label>
                     Observaciones
                 </x-label>
