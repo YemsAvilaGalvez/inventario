@@ -18,6 +18,29 @@ class PurchaseOrderCreate extends Component
     public $products = [];
     public $product_id;
 
+    public function boot()
+    {
+        //Verificar si hay errores de validación previos
+        $this->withValidator(function ($validator) {
+            if ($validator->fails()) {
+                $errors = $validator->errors()->toArray();
+                $html = '<ul class="text-left">';
+
+                foreach ($errors as $error) {
+                    $html .= "<li>{$error[0]}</li>";
+                }
+
+                $html .= '</ul>';
+
+                $this->dispatch('swal', [
+                    'icon' => 'error',
+                    'title' => '¡Error de validación!',
+                    'html' => $html,
+                ]);
+            }
+        });
+    }
+
     public function mount()
     {
         $this->correlative = PurchaseOrder::max('correlative') + 1; // Get the next correlative number
@@ -68,6 +91,16 @@ class PurchaseOrderCreate extends Component
             'products.*.id' => 'required|exists:products,id',
             'products.*.quantity' => 'required|numeric|min:1',
             'products.*.price' => 'required|numeric|min:0',
+        ],[],[
+            'vaucher_type' => 'tipo de comprobante',
+            'date' => 'fecha',
+            'supplier_id' => 'proveedor',
+            'total' => 'total',
+            'observations' => 'observaciones',
+            'products' => 'productos',
+            'products.*.id' => 'producto',
+            'products.*.quantity' => 'cantidad',
+            'products.*.price' => 'precio',
         ]);
 
         $purchaseOrder = PurchaseOrder::create([

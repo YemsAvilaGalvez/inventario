@@ -16,4 +16,6 @@ title="Ordenes de Compra | inventario"
     </x-wire-button>
 </x-slot>
 
+@livewire('admin.datatables.purchase-order-table')
+
 </x-admin-layout>

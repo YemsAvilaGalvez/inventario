@@ -23,7 +23,7 @@
     <x-wire-card>
         <form wire:submit="save" class="space-y-4">
 
-            <div class="grid grid-cols-4 gap-4">
+            <div class="grid lg:grid-cols-4 gap-4">
                 <x-wire-native-select label="Tipo de Comprobante" wire:model="vaucher_type">
                     <option value="1">Factura</option>
                     <option value="2">Boleta</option>
@@ -62,7 +62,7 @@
                 option-value="id"
             />
 
-            <div class="flex space-x-4">
+            <div class="lg:flex lg:space-x-4">
                 <x-wire-select 
                 label="Producto"
                 placeholder="Seleccione un Producto"
@@ -76,61 +76,63 @@
                 class="flex-1"
                 />
                 <div class="flex-shrink-0">
-                    <x-wire-button wire:click="addProduct" class="mt-6.5">
+                    <x-wire-button wire:click="addProduct" spinner="addProduct" class="w-full mt-4 lg:mt-6.5">
                         Agregar Producto
                     </x-wire-button>
                 </div>
                 
             </div>
 
-            <table class="w-full text-sm text-left">
-                <thead>
-                    <tr class="text-gray-700 border-y bg-blue-50">
-                        <th class="px-4 py-2">Producto</th>
-                        <th class="px-4 py-2">Cantidad</th>
-                        <th class="px-4 py-2">Precio</th>
-                        <th class="px-4 py-2">SubTotal</th>
-                        <th class="px-4 py-2"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template x-for="(product, index) in products" :key="product.id">
-                        <tr class="border-b">
-                            <td class="px-4 py-2" x-text="product.name"></td>
-                            <td class="px-4 py-2">  
-                                <x-wire-input
-                                    x-model="product.quantity"
-                                    type="number"
-                                    class="w-20"
-                                />                            
-                            </td>
-                            <td class="px-4 py-2">
-                                <x-wire-input
-                                    x-model="product.price"
-                                    type="number"
-                                    class="w-24"
-                                    step="0.01"
-                                />  
-                            </td>
-                            <td class="px-4 py-2" x-text="(product.quantity * product.price).toFixed(2)"></td>
-                            <td class="px-4 py-2">
-                                <x-wire-mini-button rounded x-on:click="removeProduct(index)" icon="trash" red/>
-                            </td>
+            <div class="overflow-x-auto w-full">
+                <table class="w-full text-sm text-left">
+                    <thead>
+                        <tr class="text-gray-700 border-y bg-blue-50">
+                            <th class="px-4 py-2">Producto</th>
+                            <th class="px-4 py-2">Cantidad</th>
+                            <th class="px-4 py-2">Precio</th>
+                            <th class="px-4 py-2">SubTotal</th>
+                            <th class="px-4 py-2"></th>
                         </tr>
-                    </template>
+                    </thead>
+                    <tbody>
+                        <template x-for="(product, index) in products" :key="product.id">
+                            <tr class="border-b">
+                                <td class="px-4 py-2" x-text="product.name"></td>
+                                <td class="px-4 py-2">  
+                                    <x-wire-input
+                                        x-model="product.quantity"
+                                        type="number"
+                                        class="w-20"
+                                    />                            
+                                </td>
+                                <td class="px-4 py-2">
+                                    <x-wire-input
+                                        x-model="product.price"
+                                        type="number"
+                                        class="w-24"
+                                        step="0.01"
+                                    />  
+                                </td>
+                                <td class="px-4 py-2" x-text="(product.quantity * product.price).toFixed(2)"></td>
+                                <td class="px-4 py-2">
+                                    <x-wire-mini-button rounded x-on:click="removeProduct(index)" icon="trash" red/>
+                                </td>
+                            </tr>
+                        </template>
 
-                    <template x-if="products.length === 0">
-                        <tr>
-                            <td colspan="5" class="text-center text-gray-500 py-4">
-                                No hay productos agregados
-                            </td>
-                        </tr>
+                        <template x-if="products.length === 0">
+                            <tr>
+                                <td colspan="5" class="text-center text-gray-500 py-4">
+                                    No hay productos agregados
+                                </td>
+                            </tr>
 
-                    </template>
-                </tbody>
-            </table>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
 
-            <div class="flex items-center space-x-4">
+            <div class="lg:flex items-center space-x-4">
                 <x-label>
                     Observaciones
                 </x-label>
@@ -146,7 +148,7 @@
             </div>
 
             <div class="flex justify-end">
-                <x-wire-button type="submit">
+                <x-wire-button type="submit" icon="check" spinner="save">
                     Guardar
                 </x-wire-button>
             </div>
