@@ -16,6 +16,9 @@ class Quote extends Model
         'observations',
     ];
 
+    protected $casts = [
+        'date' => 'datetime',
+    ];
     //relación uno a muchos inversa
     public function customer(){
         return $this->belongsTo(Customer::class);
